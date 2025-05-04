@@ -8,3 +8,8 @@ export_presets.cfg
 
 # .Net specific ignores
 libVLCsolution.sln.DotSettings.user
+
+
+data_rover-Basestation-Cameras_windows_x86_64
+libVLCgodot.exe
+libVLCgodot.pck

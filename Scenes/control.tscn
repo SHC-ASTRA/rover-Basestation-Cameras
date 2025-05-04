@@ -4,55 +4,13 @@
 
 [node name="Control" type="Control" node_paths=PackedStringArray("CameraID")]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
+anchor_right = 0.111
 anchor_bottom = 1.0
+offset_right = 0.127991
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sjmnu")
 CameraID = NodePath("Panel/LineEdit")
-
-[node name="GridContainer" type="GridContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 128.0
-grow_horizontal = 2
-grow_vertical = 2
-columns = 2
-
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-autoplay = true
-buffering_msec = 10
-metadata/_edit_group_ = true
-
-[node name="VideoStreamPlayer2" type="VideoStreamPlayer" parent="GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-autoplay = true
-buffering_msec = 10
-metadata/_edit_group_ = true
-
-[node name="VideoStreamPlayer3" type="VideoStreamPlayer" parent="GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-autoplay = true
-buffering_msec = 10
-metadata/_edit_group_ = true
-
-[node name="VideoStreamPlayer4" type="VideoStreamPlayer" parent="GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-autoplay = true
-buffering_msec = 10
-metadata/_edit_group_ = true
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -75,7 +33,6 @@ scale = Vector2(0.25, 0.25)
 pivot_offset = Vector2(144, 0)
 theme_override_font_sizes/font_size = 50
 text = "Add Stream"
-metadata/_edit_group_ = true
 
 [node name="Label" type="Label" parent="Panel"]
 layout_mode = 0
