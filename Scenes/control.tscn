@@ -1,54 +1,55 @@
-[gd_scene load_steps=2 format=3 uid="uid://ct3262ob8by2a"]
+[gd_scene load_steps=3 format=3 uid="uid://ct3262ob8by2a"]
 
-[ext_resource type="Script" uid="uid://buobj1sh0m0lp" path="res://Scripts/App.cs" id="1_sjmnu"]
+[ext_resource type="Theme" uid="uid://dtpsook6as628" path="res://control.tres" id="1_cgmvo"]
+[ext_resource type="PackedScene" uid="uid://bhbu2qatlwbvk" path="res://Scenes/StreamController.tscn" id="3_vh8u0"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("CameraID")]
-layout_mode = 3
-anchor_right = 0.111
-anchor_bottom = 1.0
-offset_right = 0.127991
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_sjmnu")
-CameraID = NodePath("Panel/LineEdit")
+[node name="Control" type="VSplitContainer"]
+offset_right = 2560.0
+offset_bottom = 1466.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_cgmvo")
 
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 128.0
-grow_vertical = 2
+[node name="Control" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="Panel"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -144.0
-offset_top = 8.0
-offset_right = 146.0
-offset_bottom = 85.0
-grow_horizontal = 2
-scale = Vector2(0.25, 0.25)
-pivot_offset = Vector2(144, 0)
-theme_override_font_sizes/font_size = 50
-text = "Add Stream"
+[node name="StreamController1" parent="Control" instance=ExtResource("3_vh8u0")]
+layout_mode = 2
+Location = "Wrist"
+id = 10
 
-[node name="Label" type="Label" parent="Panel"]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 32.0
-offset_right = 285.0
-offset_bottom = 101.0
-scale = Vector2(0.25, 0.25)
-theme_override_font_sizes/font_size = 50
-text = "Camera ID"
+[node name="StreamController2" parent="Control" instance=ExtResource("3_vh8u0")]
+layout_mode = 2
+Location = "Front"
+id = 11
 
-[node name="LineEdit" type="LineEdit" parent="Panel"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 49.0
-offset_right = 120.0
-offset_bottom = 80.0
+[node name="StreamController3" parent="Control" instance=ExtResource("3_vh8u0")]
+layout_mode = 2
+Location = "Front II"
+id = 12
 
-[connection signal="button_down" from="Panel/Button" to="." method="_on_button_button_down"]
+[node name="StreamController4" parent="Control" instance=ExtResource("3_vh8u0")]
+layout_mode = 2
+Location = "Mast"
+id = 14
+
+[node name="StreamController5" parent="Control" instance=ExtResource("3_vh8u0")]
+layout_mode = 2
+Location = "Rear"
+id = 15
+
+[node name="StreamController6" parent="Control" instance=ExtResource("3_vh8u0")]
+layout_mode = 2
+Location = "Citadel"
+id = 17
+
+[node name="StreamController7" parent="Control" instance=ExtResource("3_vh8u0")]
+layout_mode = 2
+Location = "Drill"
+id = 18
+
+[node name="StreamController8" parent="Control" instance=ExtResource("3_vh8u0")]
+layout_mode = 2
+Location = "Citadel II"
+id = 19
