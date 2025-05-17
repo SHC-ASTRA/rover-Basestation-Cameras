@@ -14,8 +14,9 @@ namespace roverBasestationCameras
 		public static Stack<StreamController> openedControllers = new();
 		public override void _Ready()
 		{
-			StreamID = int.Parse(Name.ToString().Split("Controller")[1]);
 			client = GetChild(0) as VLCClient;
+
+			client.playerWindow.Size = streamSize;
 
 			Button shortc = client.GetChild(0).GetChild(0).GetChild(0) as Button;
 			shortc.Text = Location;
@@ -27,6 +28,13 @@ namespace roverBasestationCameras
 					{
 						Keycode = (Key)(48 + StreamID),
 						Unicode = 48 + StreamID,
+						CtrlPressed = false
+					},
+					new InputEventKey()
+					{
+						Keycode = (Key)(48 + StreamID),
+						Unicode = 48 + StreamID,
+						CtrlPressed = true
 					}
 				]
 			};
@@ -36,26 +44,21 @@ namespace roverBasestationCameras
 		{
 			if (on)
 			{
-				Vector2I t = GetWindow().Size;
-				t.X = Mathf.RoundToInt(t.X * 0.25f);
-				t.Y = streamSizeY;
-
-				client.playerWindow.Size = t;
-
 				Reposition();
 
 				Open();
 
 				return;
 			}
-			client.Close();
+			else if (Input.IsKeyPressed(Key.Ctrl)) client.Close();
+			else openedControllers.Push(this);
 		}
 
 		public void Reposition()
 		{
 			Vector2I t = GetWindow().Position;
-			t.X += (StreamID-1) % 4 * streamSizeX;
-			t.Y += Mathf.FloorToInt((StreamID-1) * 0.25f) * streamSizeY + 250;
+			t.X += (StreamID-1) % 4 * streamSize.X;
+			t.Y += Mathf.FloorToInt((StreamID-1) * 0.25f) * streamSize.Y + 180;
 
 			client.playerWindow.Position = t;
 		}
@@ -88,6 +91,7 @@ namespace roverBasestationCameras
 			{
 				case Window.ModeEnum.Fullscreen:
 					client.playerWindow.Mode = Window.ModeEnum.Windowed;
+					client.playerWindow.Size = streamSize;
 					client.Close();
 					_on_panel_toggled(true);
 					GetWindow().GrabFocus();

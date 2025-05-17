@@ -8,10 +8,10 @@ namespace roverBasestationCameras
 	{
 		public static LibVLC libVLC;
 		public static LibVLC libVLCF;
-		public const int streamSizeX = 800, streamSizeY = 600;
+		public static readonly Vector2I streamSize;
 		private const string baseIP = "192.168.1.", port = "554", user = "admin", password = "";
 
-		[Export] public StreamController Controller;
+		private StreamController Controller;
 
 		public Window playerWindow;
 		private long windowHandle;
@@ -20,11 +20,22 @@ namespace roverBasestationCameras
 		private Media _media;
 		private MediaPlayer mediaPlayer;
 
+		static VLCClient()
+		{
+			Vector2I t = DisplayServer.ScreenGetSize();
+			streamSize.X = Mathf.RoundToInt(t.X * 0.25f);
+			streamSize.Y = (int)((t.Y - 180) * 0.5f);
+		}
 
 		public override void _Ready()
 		{
 			libVLC ??= new LibVLC();
 			libVLCF ??= new LibVLC("--video-filter=transform{type=vflip}");
+
+			Controller = GetParent() as StreamController;
+
+			GD.Print(Controller.StreamID);
+
 			if (playerWindow == null)
 			{
 				playerWindow = new Window()
@@ -33,7 +44,8 @@ namespace roverBasestationCameras
 					CurrentScreen = GetWindow().CurrentScreen,
 					AlwaysOnTop = true,
 					Unfocusable = true,
-					Size = new (streamSizeX, streamSizeY),
+					Size = streamSize,
+					Title = Controller.Location + ':' + (Controller.StreamID = int.Parse(Controller.Name.ToString().Split("Controller")[1])),
 				};
 
 				GetParent().GetParent().CallDeferred(Node.MethodName.AddChild, playerWindow);

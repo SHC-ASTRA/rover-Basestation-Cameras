@@ -1,30 +1,26 @@
-[gd_scene load_steps=6 format=3 uid="uid://bhbu2qatlwbvk"]
+[gd_scene load_steps=5 format=3 uid="uid://bhbu2qatlwbvk"]
 
 [ext_resource type="Theme" uid="uid://dtpsook6as628" path="res://control.tres" id="1_o4qm5"]
 [ext_resource type="Script" uid="uid://b64xd5kk2mpu8" path="res://Scripts/StreamController.cs" id="2_o4qm5"]
-[ext_resource type="PackedScene" uid="uid://ce3x457nqye0" path="res://Scenes/StreamWindowTemplate.tscn" id="2_pcrhj"]
 [ext_resource type="Script" uid="uid://cqywlt1a7haey" path="res://Scripts/VLCClient.cs" id="3_o4qm5"]
 [ext_resource type="StyleBox" uid="uid://bwfal3duj0eq0" path="res://new_style_box_flat.tres" id="4_ty32x"]
 
 [node name="StreamController" type="CenterContainer" node_paths=PackedStringArray("client")]
-custom_minimum_size = Vector2(150, 250)
+custom_minimum_size = Vector2(150, 0)
 offset_right = 150.0
-offset_bottom = 250.0
+offset_bottom = 150.0
 use_top_left = true
 script = ExtResource("2_o4qm5")
-StreamWindowTemplate = ExtResource("2_pcrhj")
 client = NodePath("Node")
 
-[node name="Node" type="Control" parent="." node_paths=PackedStringArray("Controller")]
+[node name="Node" type="Control" parent="."]
 layout_mode = 2
 script = ExtResource("3_o4qm5")
-Controller = NodePath("..")
 
 [node name="Panel" type="Panel" parent="Node"]
-custom_minimum_size = Vector2(100, 200)
 layout_mode = 1
 offset_right = 150.0
-offset_bottom = 250.0
+offset_bottom = 150.0
 theme = ExtResource("1_o4qm5")
 theme_override_styles/panel = ExtResource("4_ty32x")
 
@@ -70,70 +66,9 @@ theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = ExtResource("4_ty32x")
 text = "Fullscreen"
 
-[node name="BoxContainer" type="GridContainer" parent="Node/Panel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-columns = 3
-
-[node name="Panel" type="Panel" parent="Node/Panel/VBoxContainer/BoxContainer"]
-visibility_layer = 0
-layout_mode = 2
-
-[node name="Button" type="Button" parent="Node/Panel/VBoxContainer/BoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = ExtResource("4_ty32x")
-text = "^"
-
-[node name="Panel2" type="Panel" parent="Node/Panel/VBoxContainer/BoxContainer"]
-visibility_layer = 0
-layout_mode = 2
-
-[node name="Button2" type="Button" parent="Node/Panel/VBoxContainer/BoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = ExtResource("4_ty32x")
-text = "<"
-
-[node name="Panel3" type="Panel" parent="Node/Panel/VBoxContainer/BoxContainer"]
-visibility_layer = 0
-layout_mode = 2
-
-[node name="Button3" type="Button" parent="Node/Panel/VBoxContainer/BoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = ExtResource("4_ty32x")
-text = ">"
-
-[node name="Panel4" type="Panel" parent="Node/Panel/VBoxContainer/BoxContainer"]
-visibility_layer = 0
-layout_mode = 2
-
-[node name="Button4" type="Button" parent="Node/Panel/VBoxContainer/BoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = ExtResource("4_ty32x")
-text = "v"
-
-[node name="Panel5" type="Panel" parent="Node/Panel/VBoxContainer/BoxContainer"]
-visibility_layer = 0
-layout_mode = 2
-
 [node name="Node2D" type="Node2D" parent="Node"]
 
 [connection signal="toggled" from="Node/Panel/VBoxContainer/Panel" to="." method="_on_panel_toggled"]
 [connection signal="button_down" from="Node/Panel/VBoxContainer/Refresh Stream" to="." method="_on_refresh_stream_button_down"]
 [connection signal="button_down" from="Node/Panel/VBoxContainer/FlipVertically" to="." method="_on_flip_vertically_button_down"]
 [connection signal="button_down" from="Node/Panel/VBoxContainer/Fullscreen" to="." method="_on_fullscreen_button_down"]
-[connection signal="button_down" from="Node/Panel/VBoxContainer/BoxContainer/Button" to="." method="_on_button_1_button_down"]
-[connection signal="button_down" from="Node/Panel/VBoxContainer/BoxContainer/Button2" to="." method="_on_button_2_button_down"]
-[connection signal="button_down" from="Node/Panel/VBoxContainer/BoxContainer/Button3" to="." method="_on_button_3_button_down"]
-[connection signal="button_down" from="Node/Panel/VBoxContainer/BoxContainer/Button4" to="." method="_on_button_4_button_down"]
