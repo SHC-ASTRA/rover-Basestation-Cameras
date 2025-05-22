@@ -1,5 +1,4 @@
 using Godot;
-using System.Collections.Generic;
 using static roverBasestationCameras.VLCClient;
 namespace roverBasestationCameras
 {
@@ -11,7 +10,7 @@ namespace roverBasestationCameras
 		
 		public int StreamID;
 		public bool flipped;
-		public static Stack<StreamController> openedControllers = new();
+		public static StreamController openedControllers;
 		public override void _Ready()
 		{
 			client = GetChild(0) as VLCClient;
@@ -51,7 +50,7 @@ namespace roverBasestationCameras
 				return;
 			}
 			else if (Input.IsKeyPressed(Key.Ctrl)) client.Close();
-			else openedControllers.Push(this);
+			else openedControllers = this;
 		}
 
 		public void Reposition()
@@ -108,7 +107,7 @@ namespace roverBasestationCameras
 			{
 				if (eventKey.Pressed && eventKey.IsCommandOrControlPressed())
 				{
-					if (openedControllers.Peek() == this)
+					if (openedControllers == this)
 					{
 						switch (eventKey.Keycode)
 						{
@@ -118,9 +117,7 @@ namespace roverBasestationCameras
 								break;
 							case Key.R:
 							case Key.Refresh:
-								client.shouldPop = true;
 								Refresh();
-								openedControllers.Push(this);
 								break;
 							case Key.V:
 								_on_flip_vertically_button_down();

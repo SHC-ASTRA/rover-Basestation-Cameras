@@ -59,15 +59,15 @@ namespace roverBasestationCameras
 		public void Open(ref LibVLC owner)
 		{
 			playerWindow.Visible = true;
-			openedControllers.Push(Controller);
+			openedControllers = Controller;
 			windowHandle = DisplayServer.WindowGetNativeHandle(DisplayServer.HandleType.WindowHandle, playerWindow.GetWindowId());
 			StartVideo(ref owner);
 		}
 		public void Close()
 		{
 			playerWindow.Visible = false;
-			if (openedControllers.Peek() == Controller)
-				openedControllers.Pop();
+			if (openedControllers == Controller)
+				openedControllers = null;
 			mediaPlayer?.Dispose();
 			_media?.Dispose();
 		}
@@ -78,7 +78,6 @@ namespace roverBasestationCameras
 			_media?.Dispose();
 		}
 
-		public bool shouldPop;
 		public void StartVideo(ref LibVLC owner)
 		{
 			mediaPlayer = new MediaPlayer(owner);
@@ -101,9 +100,6 @@ namespace roverBasestationCameras
 
 			mediaPlayer.EndReached += Close;
 
-			if (shouldPop)
-				mediaPlayer.Playing += PopInteract;
-
 			mediaPlayer.Play(_media);
 		}
 
@@ -115,12 +111,6 @@ namespace roverBasestationCameras
 		public void CloseReq()
 		{
 			Close();
-		}
-
-		public void PopInteract(object o, EventArgs e)
-		{
-			shouldPop = false;
-			openedControllers.Pop();
 		}
 	}
 }
